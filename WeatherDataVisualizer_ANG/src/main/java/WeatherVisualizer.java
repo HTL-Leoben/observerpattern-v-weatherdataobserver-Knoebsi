@@ -9,7 +9,9 @@ import javafx.scene.layout.VBox;
 
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.*;
 
 public class WeatherVisualizer {
     private XYChart.Series<Number, Number> temperatureSeries;
@@ -21,6 +23,8 @@ public class WeatherVisualizer {
     private Label timeLabel;
     private ImageView weatherIconView;
     private VBox root;
+
+    private List<WeatherDataObserver> observerList = new LinkedList<ConcreteWeatherObserver>()
 
     private static final int MAX_DATA_POINTS = 20;
     private int dataPointCounter = 0;
@@ -72,6 +76,21 @@ public class WeatherVisualizer {
 
         // Root-Layout erstellen
         root = new VBox(10, lineChart, temperatureLabel, conditionLabel, timeLabel, weatherIconView);
+    }
+
+    public void registerObserver(WeatherDataObserver observer){
+        observerList.add(observer);
+    }
+
+    public void removeObserver(WeatherDataObserver observer){
+        observerList.remove(observer);
+    }
+
+    // FIX LATER!!!!!!!!!!
+    public void notifyObservers(){
+        for(ConcreteWeatherObserver : observerList){
+            ConcreteWeatherObserver.update;
+        }
     }
 
     public void updateWeatherVisualization(WeatherData weatherData) {

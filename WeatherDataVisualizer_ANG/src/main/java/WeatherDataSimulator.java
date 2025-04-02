@@ -97,8 +97,7 @@ public class WeatherDataSimulator {
                 if (lastTemperature < 15) baseChange += 1.5;
                 baseChange += 0.3;
                 break;
-            case SPRING:
-            case AUTUMN:
+            case SPRING, AUTUMN:
                 // Begrenzen auf 5 bis 25°C
                 if (lastTemperature > 25) baseChange -= 0.3;
                 if (lastTemperature < 5) baseChange += 0.3;

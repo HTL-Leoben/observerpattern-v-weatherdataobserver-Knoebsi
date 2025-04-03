@@ -3,6 +3,8 @@ import javafx.animation.AnimationTimer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class WeatherDataSimulator {
@@ -52,6 +54,23 @@ public class WeatherDataSimulator {
         this.lastTemperature = getInitialTemperatureForSeason(currentSeason);
         startWeatherDataSimulation();
     }
+
+    private final List<WeatherDataObserver> observerList = new LinkedList<>();
+
+    public void registerObserver(WeatherDataObserver observer){
+        observerList.add(observer);
+    }
+
+    public void removeObserver(WeatherDataObserver observer){
+        observerList.remove(observer);
+    }
+
+    public void notifyObservers(WeatherData currentWeather){
+        for(WeatherDataObserver observer: observerList){
+            observer.update(currentWeather);
+        }
+    }
+
 
     private double getInitialTemperatureForSeason(Season season) {
         switch (season) {
@@ -130,7 +149,8 @@ public class WeatherDataSimulator {
             public void handle(long now) {
                 if (now - lastUpdate >= 2_000_000_000L) {
                     WeatherData currentWeather = generateRealisticWeatherData();
-                    visualizer.updateWeatherVisualization(currentWeather);
+                    notifyObservers(currentWeather);
+                    // visualizer.updateWeatherVisualization(currentWeather);
                     lastUpdate = now;
                 }
             }

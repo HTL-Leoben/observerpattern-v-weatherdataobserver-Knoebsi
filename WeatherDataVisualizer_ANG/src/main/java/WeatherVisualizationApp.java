@@ -13,6 +13,10 @@ public class WeatherVisualizationApp extends Application {
         // Simulator mit Visualizer verbinden
         WeatherDataSimulator simulator = new WeatherDataSimulator(visualizer, LocalDate.of(2025, 6,1), 60);
 
+        //Observer Shit implementieren und hinzufügen!
+        WeatherDataObserver observer = new ConcreteWeatherObserver();
+        simulator.registerObserver(observer);
+
         // Szene erstellen
         Scene scene = new Scene(visualizer.getRoot(), 800, 600);
         primaryStage.setTitle("Wetter-Visualisierung");
@@ -21,6 +25,11 @@ public class WeatherVisualizationApp extends Application {
     }
 
     public static void main(String[] args) {
+
         launch(args);
+
+
+
+
     }
 }

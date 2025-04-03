@@ -11,7 +11,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WeatherVisualizer {
+
+// MUAS DES KOMISCHE INTERFACE IMPLEMENTIERN: WICHTIG!!!!!!!!!!!!!!!!!!!!!!!!
+public class WeatherVisualizer implements WeatherDataObserver{
     private XYChart.Series<Number, Number> temperatureSeries;
     private LineChart<Number, Number> lineChart;
     private NumberAxis xAxis;
@@ -23,6 +25,12 @@ public class WeatherVisualizer {
     private VBox root;
 
 
+    // WICHTIG!!!!!!!!!!!!!!!!!! OBSERVER PATTERN!!!!!!!!!!!! Söwa gmocht.
+    // Made in Austria
+    @Override
+    public void update(WeatherData weatherData) {
+        updateWeatherVisualization(weatherData);
+    }
 
     private static final int MAX_DATA_POINTS = 20;
     private int dataPointCounter = 0;
@@ -109,6 +117,7 @@ public class WeatherVisualizer {
     public VBox getRoot() {
         return root;
     }
+
 
 
 }

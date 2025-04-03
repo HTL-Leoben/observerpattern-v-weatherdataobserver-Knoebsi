@@ -9,7 +9,10 @@ import java.util.Random;
 
 public class WeatherDataSimulator {
 
-    private WeatherVisualizer visualizer;
+    // Des muas glöscht wean!!!!!!!
+    // private WeatherVisualizer visualizer;
+
+
     private Random random;
     private double lastTemperature;
     private int intervalMinutes;
@@ -44,9 +47,9 @@ public class WeatherDataSimulator {
         }
     }
 
-    // Konstruktor bleibt unverändert
-    public WeatherDataSimulator(WeatherVisualizer visualizer, LocalDate startDate, int intervalMinutes) {
-        this.visualizer = visualizer;
+    // Konstruktor bleibt NNNNNNEEEEEEDDDDDDD unverändert
+    // BRAUCHT KAN VISUALIZER!!!!!!!!!!!!!!
+    public WeatherDataSimulator(LocalDate startDate, int intervalMinutes) {
         this.random = new Random();
         this.intervalMinutes = intervalMinutes;
         this.lastTimestamp = LocalDateTime.of(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth(),0,0);
@@ -55,14 +58,18 @@ public class WeatherDataSimulator {
         startWeatherDataSimulation();
     }
 
+    // DI NÄCHSTN 4 METHODN SAN IMPORTANT!!!!!!!!!!!!!
+    // SÖWA GSCHRIEM !!!
+    // OBSERVER PATTERN!!!!!!!!!!!
+
     private final List<WeatherDataObserver> observerList = new LinkedList<>();
 
-    public void registerObserver(WeatherDataObserver observer){
-        observerList.add(observer);
+    public void registerObserver(WeatherVisualizer visualizer){
+        observerList.add(visualizer);
     }
 
-    public void removeObserver(WeatherDataObserver observer){
-        observerList.remove(observer);
+    public void removeObserver(WeatherVisualizer visualizer){
+        observerList.remove(visualizer);
     }
 
     public void notifyObservers(WeatherData currentWeather){
@@ -71,6 +78,8 @@ public class WeatherDataSimulator {
         }
     }
 
+
+    // Is wieda wuascht
 
     private double getInitialTemperatureForSeason(Season season) {
         switch (season) {
@@ -149,8 +158,13 @@ public class WeatherDataSimulator {
             public void handle(long now) {
                 if (now - lastUpdate >= 2_000_000_000L) {
                     WeatherData currentWeather = generateRealisticWeatherData();
+
+                    // De san söwa gschriem woan. WICHTIG!!!
                     notifyObservers(currentWeather);
                     // visualizer.updateWeatherVisualization(currentWeather);
+
+
+
                     lastUpdate = now;
                 }
             }

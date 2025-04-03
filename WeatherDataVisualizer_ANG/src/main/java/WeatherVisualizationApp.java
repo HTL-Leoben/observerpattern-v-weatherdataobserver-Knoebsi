@@ -7,15 +7,16 @@ import java.time.LocalDate;
 public class WeatherVisualizationApp extends Application {
     @Override
     public void start(Stage primaryStage) {
-        // Visualizer erstellen
+
+
+        // Visualizer zuweisen
         WeatherVisualizer visualizer = new WeatherVisualizer();
 
         // Simulator mit Visualizer verbinden
-        WeatherDataSimulator simulator = new WeatherDataSimulator(visualizer, LocalDate.of(2025, 6,1), 60);
+        WeatherDataSimulator simulator = new WeatherDataSimulator(LocalDate.of(2025, 6,1), 60);
 
-        //Observer Shit implementieren und hinzufügen!
-        WeatherDataObserver observer = new ConcreteWeatherObserver();
-        simulator.registerObserver(observer);
+        // REGISTER OBSERVER is vorgschriem! Sunst nix kompiliern diese
+        simulator.registerObserver(visualizer);
 
         // Szene erstellen
         Scene scene = new Scene(visualizer.getRoot(), 800, 600);
